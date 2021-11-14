@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                echo '${env:REGION}'
+                echo $env:REGION
             }
         }
         stage('Test') {
