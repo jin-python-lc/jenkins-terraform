@@ -1,4 +1,4 @@
-region = env:REGION
+region = env.REGION
 
 pipeline {
     agent any
