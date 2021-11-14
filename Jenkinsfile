@@ -1,3 +1,5 @@
+region = $env:REGION
+
 pipeline {
     agent any
 
@@ -5,7 +7,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                echo $env:REGION
+                echo `${region}`
             }
         }
         stage('Test') {
