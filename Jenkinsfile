@@ -1,4 +1,6 @@
-region = env.REGION
+parameters {
+    string( name: 'REGION')
+}
 
 pipeline {
     agent any
@@ -7,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                echo region
+                echo '${params.REGION}'
             }
         }
         stage('Test') {
