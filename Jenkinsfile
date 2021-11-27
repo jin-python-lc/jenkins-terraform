@@ -33,7 +33,7 @@ pipeline {
             steps {
                 timeout(unit: 'MINUTES', time: 1){
                     echo 'Deploying....'
-                    input message: 'Approve Deploy?', ok: 'Apply'
+                    input id: 'approver'
                 }
             }
         }
