@@ -1,6 +1,7 @@
 def job_name = env.JOB_NAME.split('-')
 def project_name = job_name[0]
 def is_dryrun = job_name[-1] == 'dryrun'
+def is_apply = ''
 
 parameters {
     string(name: 'REGION')
@@ -33,7 +34,12 @@ pipeline {
             steps {
                 timeout(unit: 'MINUTES', time: 1){
                     echo 'Deploying....'
-                    input id: 'approver'
+                    script{
+                        is_apply =  input message: 'Please enter the username',
+                                        parameters: [string(defaultValue: '',
+                                            description: '',
+                                            name: 'Username')]
+                    }
                 }
             }
         }
