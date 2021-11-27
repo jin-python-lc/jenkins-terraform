@@ -38,7 +38,7 @@ pipeline {
                         is_apply =  input message: 'Please enter the username',
                                         parameters: [string(defaultValue: '',
                                             description: '',
-                                            name: 'Username')]
+                                            name: 'enter "apply" to apply')]
                     }
                 }
             }
@@ -46,6 +46,7 @@ pipeline {
         stage('Apply') {
             steps {
                 echo 'Deploying....'
+                echo "${is_apply}"
             }
         }
     }
