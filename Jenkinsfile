@@ -1,4 +1,6 @@
-def job_name = env.JOB_NAME
+def job_name = env.JOB_NAME.split('-')
+def project_name = job_name[0]
+def is_dryrun = job_name[-1] == 'dryrun'
 
 parameters {
     string(name: 'REGION')
@@ -9,12 +11,17 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Params') {
             steps {
                 echo 'Building..'
                 echo "${params.REGION}"
                 echo "${params.TERRAFORM}"
                 echo "${job_name}"
+            }
+        }
+        stage('Init') {
+            steps {
+                echo ' Initializing....'
             }
         }
         stage('Plan') {
@@ -25,6 +32,7 @@ pipeline {
         stage('Branch') {
             steps {
                 echo 'Deploying....'
+                input id:'approver'
             }
         }
         stage('Apply') {
