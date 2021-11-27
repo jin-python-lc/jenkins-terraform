@@ -31,8 +31,10 @@ pipeline {
         }
         stage('Branch') {
             steps {
-                echo 'Deploying....'
-                input message: 'Approve Deploy?', ok: 'Yes'
+                timeout(unit: 'MINUTES', time: 1){
+                    echo 'Deploying....'
+                    input message: 'Approve Deploy?', ok: 'Apply'
+                }
             }
         }
         stage('Apply') {
