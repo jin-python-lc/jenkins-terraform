@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Params') {
             steps {
-                echo 'Building..'
+                echo 'Params'
                 echo "${params.REGION}"
                 echo "${params.TERRAFORM}"
                 echo "${job_name}"
@@ -22,20 +22,25 @@ pipeline {
         }
         stage('Init') {
             steps {
-                echo ' Initializing....'
+                echo 'Init'
             }
         }
         stage('Plan') {
             steps {
-                echo 'Testing..'
+                echo 'Plan'
             }
         }
         stage('Branch') {
+            when {
+                not {
+                    equals(expected: true, actual: is_dryrun)
+                }
+            }
             steps {
-                timeout(unit: 'MINUTES', time: 1){
+                timeout(unit: 'MINUTES', time: 1) {
                     echo 'Deploying....'
                     script{
-                        is_apply =  input message: 'Please enter the username',
+                        is_apply =  input message: 'apply or not',
                                         parameters: [string(defaultValue: '',
                                             description: '',
                                             name: 'enter "apply" to apply')]
@@ -44,8 +49,13 @@ pipeline {
             }
         }
         stage('Apply') {
+            when {
+                expression {
+                    return is_apply == 'apply'
+                }
+            }
             steps {
-                echo 'Deploying....'
+                echo 'Apply......'
                 echo "${is_apply}"
             }
         }
