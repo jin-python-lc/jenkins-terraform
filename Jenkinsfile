@@ -32,7 +32,7 @@ pipeline {
         stage('Branch') {
             steps {
                 echo 'Deploying....'
-                input id:'approver'
+                input message: ‘Approve Deploy?’, ok: ‘Yes’
             }
         }
         stage('Apply') {
