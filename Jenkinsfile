@@ -39,21 +39,22 @@ pipeline {
             steps {
                 timeout(unit: 'MINUTES', time: 1) {
                     echo 'Deploying....'
-                    script{
+                    /* script{
                         is_apply =  input message: 'apply or not',
                                         parameters: [string(defaultValue: '',
                                             description: '',
                                             name: 'enter "apply" to apply')]
-                    }
+                    } */
+                    input message: 'apply or not'
                 }
             }
         }
         stage('Apply') {
-            when {
+            /* when {
                 expression {
                     return is_apply == 'apply'
                 }
-            }
+            } */
             steps {
                 echo 'Apply......'
                 echo "${is_apply}"
