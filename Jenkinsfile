@@ -25,14 +25,17 @@ pipeline {
                 echo 'Init'
             }
         }
+        // terraform plan
         stage('Plan') {
             steps {
                 echo 'Plan'
             }
         }
+        // デプロイするしないの分岐
         stage('Branch') {
             when {
                 not {
+                    // dryrunジョブならデプロイしない
                     equals(expected: true, actual: is_dryrun)
                 }
             }
@@ -40,6 +43,7 @@ pipeline {
                 timeout(unit: 'MINUTES', time: 5) {
                     echo 'Deploying....'
                     script{
+                        // デプロイするならapplyと入力
                         is_apply =  input message: 'apply or not',
                                         parameters: [string(defaultValue: '',
                                             description: '',
@@ -51,6 +55,7 @@ pipeline {
         stage('Apply') {
             when {
                 expression {
+                    // 入力値がapplyかチェック
                     return is_apply == 'apply'
                 }
             }
