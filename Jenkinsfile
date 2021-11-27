@@ -37,7 +37,7 @@ pipeline {
                 }
             }
             steps {
-                timeout(unit: 'MINUTES', time: 1) {
+                timeout(unit: 'MINUTES', time: 5) {
                     echo 'Deploying....'
                     script{
                         is_apply =  input message: 'apply or not',
