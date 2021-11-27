@@ -43,7 +43,7 @@ pipeline {
                         is_apply =  input message: 'apply or not',
                                         parameters: [string(defaultValue: '',
                                             description: '',
-                                            name: 'enter "apply" to apply')]
+                                            name: 'enter "apply" to deploy')]
                     }
                 }
             }
@@ -55,7 +55,7 @@ pipeline {
                 }
             }
             steps {
-                echo 'Apply......'
+                echo 'Apply'
                 echo "${is_apply}"
             }
         }
