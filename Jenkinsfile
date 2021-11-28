@@ -2,6 +2,8 @@ def job_name = env.JOB_NAME.split('-')
 def project_name = job_name[0]
 def is_dryrun = job_name[-1] == 'dryrun'
 def is_apply = ''
+def backend_config_path = ''
+def tfvars_path = ''
 
 parameters {
     string(name: 'REGION')
@@ -23,6 +25,9 @@ pipeline {
         stage('Init') {
             steps {
                 echo 'Init'
+                backend_config_path = "./config/${params.REGION}.backend"
+                tfvars_path = "./config/${params.REGION}.tfvars"
+                sh("ls -l; pwd")
             }
         }
         // terraform plan
