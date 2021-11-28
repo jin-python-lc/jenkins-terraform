@@ -29,10 +29,9 @@ pipeline {
             steps {
                 echo "Init"
                 script{
-                    sh("aws configure list --profile jenkins")
                     backend_config_path = "./config/poc/${params.REGION}.backend"
                     tfvars_path = "./config/${params.REGION}.tfvars"
-                    sh("cd src/; terraform init -backend-config=${backend_config_path}")
+                    sh("aws configure list --profile jenkins; cd src/; terraform init -backend-config=${backend_config_path}")
                 }
             }
         }
