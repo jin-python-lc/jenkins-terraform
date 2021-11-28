@@ -26,6 +26,7 @@ pipeline {
             steps {
                 echo "Init"
                 script{
+                    sh( "aws configure ")
                     backend_config_path = "./config/poc/${params.REGION}.backend"
                     tfvars_path = "./config/${params.REGION}.tfvars"
                     sh( "cd src/; terraform init -backend-config=${backend_config_path}" )
