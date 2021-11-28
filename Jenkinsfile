@@ -28,7 +28,7 @@ pipeline {
                 script{
                     backend_config_path = "./config/${params.REGION}.backend"
                     tfvars_path = "./config/${params.REGION}.tfvars"
-                    sh( "cd src/; terraform init -backend-config={backend_config_path}" )
+                    sh( "cd src/; sudo terraform init -backend-config={backend_config_path}" )
                 }
             }
         }
