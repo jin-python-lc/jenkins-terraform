@@ -30,6 +30,7 @@ pipeline {
                     tfvars_path = "./config/${params.REGION}.tfvars"
                     sh( "cd src/; terraform init -backend-config={backend_config_path}" )
                 }
+                echo "${backend_config_path}"
             }
         }
         // terraform plan
