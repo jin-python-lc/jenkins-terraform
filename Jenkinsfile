@@ -29,7 +29,7 @@ pipeline {
                 }
             }
         }
-        stage("s3 ls") {
+        stage("Init") {
             steps {
                 withCredentials(
                 [[
@@ -39,26 +39,9 @@ pipeline {
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]
                 ) {
-                sh "aws s3 ls"
                 sh "cd src/"
                 sh "terraform init -backend-config=${backend_config_path}"
                 
-                }
-            }
-        }
-        stage("Init") {
-            steps {
-                echo "Init"
-                withCredentials(
-                [[
-                    $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-credential',
-                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-                ]]
-                ) 
-                script {
-                    sh "cd src/; terraform init -backend-config=${backend_config_path}"
                 }
             }
         }
