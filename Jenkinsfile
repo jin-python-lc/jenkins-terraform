@@ -51,8 +51,8 @@ pipeline {
                     script{
                         // デプロイするならapplyと入力
                         is_apply =  input message: "apply or not",
-                                        parameters: [string(defaultValue: ",
-                                            description: ",
+                                        parameters: [string(defaultValue: "",
+                                            description: "",
                                             name: "enter "apply" to deploy")]
                     }
                 }
