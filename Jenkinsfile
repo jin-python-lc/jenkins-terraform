@@ -44,6 +44,14 @@ pipeline {
         stage("Init") {
             steps {
                 echo "Init"
+                withCredentials(
+                [[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aws-credential',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]
+                ) 
                 script{
                     backend_config_path = "./config/poc/${params.REGION}.backend"
                     tfvars_path = "./config/${params.REGION}.tfvars"
