@@ -4,7 +4,6 @@ def is_dryrun = job_name[-1] == "dryrun"
 def is_apply = ""
 def backend_config_path = ""
 def tfvars_path = ""
-def tfvars_path = ""
 
 parameters {
     string(name: "REGION")
