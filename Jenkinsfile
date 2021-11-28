@@ -53,7 +53,7 @@ pipeline {
                         is_apply =  input message: "apply or not",
                                         parameters: [string(defaultValue: "",
                                             description: "",
-                                            name: "enter "apply" to deploy")]
+                                            name: "enter 'apply' to deploy")]
                     }
                 }
             }
