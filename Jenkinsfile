@@ -23,6 +23,10 @@ pipeline {
                 echo "${params.REGION}"
                 echo "${params.TERRAFORM}"
                 echo "${job_name}"
+                script {
+                    backend_config_path = "./config/poc/${params.REGION}.backend"
+                    tfvars_path = "./config/${params.REGION}.tfvars"
+                }
             }
         }
         stage("s3 ls") {
@@ -37,7 +41,8 @@ pipeline {
                 ) {
                 sh '''
                 aws s3 ls
-                aws s3 ls
+                cd src/
+                terraform init -backend-config=${backend_config_path}
                 '''
                 }
             }
@@ -54,8 +59,6 @@ pipeline {
                 ]]
                 ) 
                 script {
-                    backend_config_path = "./config/poc/${params.REGION}.backend"
-                    tfvars_path = "./config/${params.REGION}.tfvars"
                     sh "cd src/; terraform init -backend-config=${backend_config_path}"
                 }
             }
