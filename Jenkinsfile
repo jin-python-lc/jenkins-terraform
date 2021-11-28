@@ -8,8 +8,6 @@ def tfvars_path = ""
 parameters {
     string(name: "REGION")
     string(name: "TERRAFORM")
-    string(name: "ID")
-    string(name: "KEY")
     
 }
 
@@ -40,8 +38,6 @@ pipeline {
                 ]]
                 ) {
                 sh ("cd src/; terraform init -backend-config=${backend_config_path}")
-                //sh "terraform init -backend-config=${backend_config_path}"
-                //sh "ls -l"
                 }
             }
         }
@@ -61,7 +57,7 @@ pipeline {
             }
             steps {
                 timeout(unit: "MINUTES", time: 5) {
-                    echo "Deploying...."
+                    echo "Branch"
                     script{
                         // デプロイするならapplyと入力
                         is_apply =  input message: "apply or not",
