@@ -37,6 +37,7 @@ pipeline {
                 ) {
                 sh '''
                 aws s3 ls
+                aws s3 ls
                 '''
                 }
             }
@@ -55,7 +56,7 @@ pipeline {
                 script {
                     backend_config_path = "./config/poc/${params.REGION}.backend"
                     tfvars_path = "./config/${params.REGION}.tfvars"
-                    sh "aws configure list --profile jenkins; cd src/; terraform init -backend-config=${backend_config_path}"
+                    sh "cd src/; terraform init -backend-config=${backend_config_path}"
                 }
             }
         }
