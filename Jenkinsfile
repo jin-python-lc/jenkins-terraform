@@ -8,6 +8,9 @@ def tfvars_path = ""
 parameters {
     string(name: "REGION")
     string(name: "TERRAFORM")
+    string(name: "ID")
+    string(name: "KEY")
+    
 }
 
 pipeline {
@@ -26,7 +29,7 @@ pipeline {
             steps {
                 echo "Init"
                 script{
-                    sh("aws configure list")
+                    sh("aws configure --profile jenkins; ${params.ID}; ${params.KEY}; ${params.REGION}; json")
                     backend_config_path = "./config/poc/${params.REGION}.backend"
                     tfvars_path = "./config/${params.REGION}.tfvars"
                     sh("cd src/; terraform init -backend-config=${backend_config_path}")
