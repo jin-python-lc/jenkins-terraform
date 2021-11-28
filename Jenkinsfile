@@ -25,9 +25,11 @@ pipeline {
         stage("Init") {
             steps {
                 echo "Init"
-                backend_config_path = "./config/${params.REGION}.backend"
-                tfvars_path = "./config/${params.REGION}.tfvars"
-                sh("ls -l; pwd")
+                script{
+                    backend_config_path = "./config/${params.REGION}.backend"
+                    tfvars_path = "./config/${params.REGION}.tfvars"
+                    sh("ls -l; pwd")
+                }
             }
         }
         // terraform plan
