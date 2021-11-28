@@ -1,43 +1,44 @@
-def job_name = env.JOB_NAME.split('-')
+def job_name = env.JOB_NAME.split("-")
 def project_name = job_name[0]
-def is_dryrun = job_name[-1] == 'dryrun'
-def is_apply = ''
-def backend_config_path = ''
-def tfvars_path = ''
+def is_dryrun = job_name[-1] == "dryrun"
+def is_apply = ""
+def backend_config_path = ""
+def tfvars_path = ""
+def tfvars_path = ""
 
 parameters {
-    string(name: 'REGION')
-    string(name: 'TERRAFORM')
+    string(name: "REGION")
+    string(name: "TERRAFORM")
 }
 
 pipeline {
     agent any
 
     stages {
-        stage('Params') {
+        stage("Params") {
             steps {
-                echo 'Params'
+                echo "Params"
                 echo "${params.REGION}"
                 echo "${params.TERRAFORM}"
                 echo "${job_name}"
             }
         }
-        stage('Init') {
+        stage("Init") {
             steps {
-                echo 'Init'
+                echo "Init"
                 backend_config_path = "./config/${params.REGION}.backend"
                 tfvars_path = "./config/${params.REGION}.tfvars"
                 sh("ls -l; pwd")
             }
         }
         // terraform plan
-        stage('Plan') {
+        stage("Plan") {
             steps {
-                echo 'Plan'
+                echo "Plan"
             }
         }
         // デプロイするしないの分岐
-        stage('Branch') {
+        stage("Branch") {
             when {
                 not {
                     // dryrunジョブならデプロイしない
@@ -45,27 +46,27 @@ pipeline {
                 }
             }
             steps {
-                timeout(unit: 'MINUTES', time: 5) {
-                    echo 'Deploying....'
+                timeout(unit: "MINUTES", time: 5) {
+                    echo "Deploying...."
                     script{
                         // デプロイするならapplyと入力
-                        is_apply =  input message: 'apply or not',
-                                        parameters: [string(defaultValue: '',
-                                            description: '',
-                                            name: 'enter "apply" to deploy')]
+                        is_apply =  input message: "apply or not",
+                                        parameters: [string(defaultValue: ",
+                                            description: ",
+                                            name: "enter "apply" to deploy")]
                     }
                 }
             }
         }
-        stage('Apply') {
+        stage("Apply") {
             when {
                 expression {
                     // 入力値がapplyかチェック
-                    return is_apply == 'apply'
+                    return is_apply == "apply"
                 }
             }
             steps {
-                echo 'Apply'
+                echo "Apply"
                 echo "${is_apply}"
             }
         }
