@@ -44,6 +44,8 @@ pipeline {
         stage("Init") {
             steps {
                 echo "Init"
+                backend_config_path = "./config/poc/${params.REGION}.backend"
+                tfvars_path = "./config/${params.REGION}.tfvars"
                 withCredentials(
                 [[
                     $class: 'AmazonWebServicesCredentialsBinding',
@@ -51,11 +53,8 @@ pipeline {
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]
-                ) 
-                script{
-                    backend_config_path = "./config/poc/${params.REGION}.backend"
-                    tfvars_path = "./config/${params.REGION}.tfvars"
-                    sh("aws configure list --profile jenkins; cd src/; terraform init -backend-config=${backend_config_path}")
+                ) {
+                    sh "aws configure list --profile jenkins; cd src/; terraform init -backend-config=${backend_config_path}"
                 }
             }
         }
