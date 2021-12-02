@@ -45,6 +45,7 @@ pipeline {
         stage("Plan") {
             steps {
                 echo "Plan"
+                sh("terraform import aws_lightsail_instance.TruckMarket 'TruckMarket'")
             }
         }
         // デプロイするしないの分岐
