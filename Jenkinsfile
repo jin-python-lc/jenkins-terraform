@@ -23,7 +23,7 @@ pipeline {
                 echo "${job_name}"
                 script {
                     backend_config_path = "./config/poc/${params.REGION}.backend"
-                    tfvars_path = "./config/${params.REGION}.tfvars"
+                    tfvars_path = "./config/poc/${params.REGION}.tfvars"
                 }
             }
         }
