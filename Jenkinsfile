@@ -45,7 +45,7 @@ pipeline {
         stage("Plan") {
             steps {
                 echo "Plan"
-                sh("cd src/; terraform import aws_lightsail_instance.TruckMarket 'TruckMarket'")
+                sh("cd src/; terraform plan -var-file=${tfvars_path}")
             }
         }
         // デプロイするしないの分岐
@@ -62,7 +62,7 @@ pipeline {
                     script{
                         // デプロイするならapplyと入力
                         is_apply =  input message: "apply or not",
-                                        parameters: [string(defaultValue: "",
+                                            parameters: [string(defaultValue: "",
                                             description: "",
                                             name: "enter 'apply' to deploy")]
                     }
@@ -78,7 +78,7 @@ pipeline {
             }
             steps {
                 echo "Apply"
-                echo "${is_apply}"
+                sh("cd src/; terraform apply -var-file=${tfvars_path}")
             }
         }
     }
