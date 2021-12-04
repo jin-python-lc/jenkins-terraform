@@ -1,4 +1,4 @@
-bucket = "trackmaster-tfstate-jenkins"
+bucket = "trackmaster-tfstate"
 key = "ap-northeast-1.tfstate"
 region = "ap-northeast-1"
 profile = "jenkins"
