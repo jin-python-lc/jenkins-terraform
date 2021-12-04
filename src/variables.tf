@@ -1,3 +1,4 @@
-variable "region" { type = string}
-variable "shared_credentials_file" { type = string}
-variable "profile" { type = string}
+variable "region" { type = string }
+variable "region_az" { type = string }
+variable "account_id" { type = string }
+variable "domain" { type = string }
