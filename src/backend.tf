@@ -9,8 +9,8 @@ terraform {
 
   backend "s3" {
     bucket = "trackmarket-jenkins"
-    key    = "path/to/my/key"
-    region = "us-east-1"
+    key = "ap-northeast-1.tfstate"
+    region = "ap-northeast-1"
   }
   
 }
