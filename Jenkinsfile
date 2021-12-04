@@ -37,7 +37,7 @@ pipeline {
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]
                 ) {
-                sh ("cd src/; terraform init -backend-config=${backend_config_path}")
+                sh ("rm -r .terraform; cd src/; terraform init -backend-config=${backend_config_path}")
                 }
             }
         }
