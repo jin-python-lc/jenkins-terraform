@@ -1,6 +1,6 @@
 version: 0.2
 phases:
-  plan:
+  pre_build:
     commands:
        - echo !!!!!!!!!!!!!!!!!!!!!! TERRAFORM PLAN !!!!!!!!!!!!!!!!!!!!!!
        - cd src
