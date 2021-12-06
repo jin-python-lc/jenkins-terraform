@@ -2,7 +2,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-       - echo !!!!!!!!!!!!!!!!!!!!!! TERRAFORM PLAN !!!!!!!!!!!!!!!!!!!!!!
        - cd src
        - terraform init -backend-config=./config/poc/ap-northeast-1.backend
+       - echo !!!!!!!!!!!!!!!!!!!!!! TERRAFORM PLAN !!!!!!!!!!!!!!!!!!!!!!
        - terraform plan -var-file=./config/poc/ap-northeast-1.tfvars
