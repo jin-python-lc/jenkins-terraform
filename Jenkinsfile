@@ -81,7 +81,7 @@ pipeline {
             }
             steps {
                 echo "Apply"
-                sh("cd src/; terraform apply -var-file=${tfvars_path}")
+                //sh("cd src/; terraform apply -var-file=${tfvars_path}")
             }
         }
     }
