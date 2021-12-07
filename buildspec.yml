@@ -4,5 +4,5 @@ phases:
     commands:
        - cd src
        - terraform init -backend-config=./config/poc/ap-northeast-1.backend
-       - echo !!!!!!!!!!!!!!!!!!!!!! TERRAFORM PLAN !!!!!!!!!!!!!!!!!!!!!!
+       - echo !!!!!!!!!!!!!!!!!!!!!! TERRAFORM PLAN staging!!!!!!!!!!!!!!!!!!!!!!
        - terraform plan -var-file=./config/poc/ap-northeast-1.tfvars
